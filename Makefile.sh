@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/sh
 
 # Just FYI, these are the linux commands necessary to compile a blog using
 # this script (don't mind the versions, the script will probably run fine
@@ -78,20 +78,21 @@ textfont="DM+Sans"
 monofont="DM+Mono"
 logofont="Fraunces"
 
+
 # In the beginning, there was a homepage
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block        \
-       --title-prefix="$site_id · " --template templates/page.html \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+     --title-prefix="$site_id · " --template templates/page.html \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \
+       -V   baseurl="$baseurl" \
        -o index.html --standalone index.md recent.md pinned.md
   
 # Next we build a post index
-temp="_index.md"
+temp="index.txt"
 rm -f $temp
 export HEADER=`cat <<EOF
 ---
@@ -123,16 +124,16 @@ do
 done
 
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block $temp  \
-       --title-prefix="$site_id · " --template templates/page.html \
-       -o "posts/index.html"   \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+     --title-prefix="$site_id · " --template templates/page.html \
+       -o     posts/index.html   \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \
-       -V year="$(date -u +%Y)"
+       -V   baseurl="$baseurl" \
+
 
 # I have not yet figured out why Jilles included this "year"
 # variable at this point, but I am keeping it none the less,
@@ -144,16 +145,15 @@ rm -f $temp
 # Now we compile the static pages...
 for page in pages/*.md; do
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block $page  \
-       --title-prefix="$site_id · " --template templates/page.html \
-       -o pages/"$(basename $page .md).html" \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+     --title-prefix="$site_id · " --template templates/page.html \
+       -o     pages/"$(basename $page .md).html" \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \
-       -V year="$(date -u +%Y)"
+       -V   baseurl="$baseurl" 
 done
 
 # With the static pages ready, we must create and populate the
@@ -198,17 +198,64 @@ do
 done
 
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block $ind   \
-       --title-prefix="$site_id · " --template templates/page.html \
+     --title-prefix="$site_id · " --template templates/page.html \
        -o "$catprefix/$category/$(basename $ind .txt).html" \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \    
-       -V year="$(date -u +%Y)"
+       -V   baseurl="$baseurl" 
+
 done
+
+# Now let's make the category index
+
+echo "---
+title: \"Lista de categorias\"
+---
+
+|
+|:---:|:---:|:---:|" > $catprefix/index.txt
+
+cp catlist.txt $catprefix/_catlist.txt 
+
+paste -d' ' catlist.txt $catprefix/_catlist.txt > $catprefix/_index.txt
+sed -i  's/ $//g' $catprefix/_index.txt
+tr -s " " < $catprefix/_index.txt > $catprefix/__index.txt
+mv $catprefix/__index.txt $catprefix/_index.txt
+sed -i 's/$/ |/g' $catprefix/_index.txt
+
+cat $catprefix/_index.txt | tr \  \\n | column -x -c 150 > $catprefix/__index.txt
+mv $catprefix/__index.txt $catprefix/_index.txt
+
+sed -i 's/\t/ /g' $catprefix/_index.txt
+sed -i 's/  / /g' $catprefix/_index.txt
+sed -i 's/^/| /g' $catprefix/_index.txt
+
+# Using sed to build the links!
+sed -i 's/ |/\/index.html) |/g' $catprefix/_index.txt
+sed -i 's/| /| [/g' $catprefix/_index.txt
+sed -i 's/ /] /g' $catprefix/_index.txt
+sed -i 's/|]/|/g' $catprefix/_index.txt
+sed -i 's/] /](/g' $catprefix/_index.txt
+sed -i 's/](|/ |/g' $catprefix/_index.txt
+
+cat $catprefix/_index.txt >> $catprefix/index.txt
+rm $catprefix/_index.txt
+
+# And now compile the category index page
+pandoc --to=html5 --from markdown+smart+yaml_metadata_block $catprefix/index.txt   \
+     --title-prefix="$site_id · " --template templates/page.html \
+       -o $catprefix/index.html \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
+       -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
+       -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
+       -V monostyle="$monofont" \
+       -V   baseurl="$baseurl" 
 
 # Done with categories, let's build the tag pages
 
@@ -252,37 +299,89 @@ do
 done
 
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block $ind   \
-       --title-prefix="$site_id · " --template templates/page.html \
+     --title-prefix="$site_id · " --template templates/page.html \
        -o "$tagprefix/$tag/$(basename $ind .txt).html" \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \ 
-       -V year="$(date -u +%Y)"
+       -V   baseurl="$baseurl" 
 done
+
+# Now let's make the tag index
+
+echo "---
+title: \"Lista de assuntos\"
+---
+
+|
+|:---:|:---:|:---:|" > $tagprefix/index.txt
+
+cp taglist.txt $tagprefix/_taglist.txt 
+
+paste -d' ' taglist.txt $tagprefix/_taglist.txt > $tagprefix/_index.txt
+sed -i  's/ $//g' $tagprefix/_index.txt
+tr -s " " < $tagprefix/_index.txt > $tagprefix/__index.txt
+mv $tagprefix/__index.txt $tagprefix/_index.txt
+sed -i 's/$/ |/g' $tagprefix/_index.txt
+
+cat $tagprefix/_index.txt | tr \  \\n | column -x -c 230 > $tagprefix/__index.txt
+mv $tagprefix/__index.txt $tagprefix/_index.txt
+
+tr -s "\t" < $tagprefix/_index.txt > $tagprefix/__index.txt 
+mv $tagprefix/__index.txt $tagprefix/_index.txt
+
+sed -i 's/\t/ /g' $tagprefix/_index.txt
+
+sed -i 's/  / /g' $tagprefix/_index.txt
+sed -i 's/^/| /g' $tagprefix/_index.txt
+
+# Using sed to build the links!
+sed -i 's/ |/\/index.html) |/g' $tagprefix/_index.txt
+sed -i 's/| /| [/g' $tagprefix/_index.txt
+sed -i 's/ /] /g' $tagprefix/_index.txt
+sed -i 's/|]/|/g' $tagprefix/_index.txt
+sed -i 's/] /](/g' $tagprefix/_index.txt
+sed -i 's/](|/ |/g' $tagprefix/_index.txt
+
+cat $tagprefix/_index.txt >> $tagprefix/index.txt
+rm $tagprefix/_index.txt
+
+# And now compile the tag index page
+pandoc --to=html5 --from markdown+smart+yaml_metadata_block $tagprefix/index.txt   \
+     --title-prefix="$site_id · " --template templates/page.html \
+       -o $tagprefix/index.html \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
+       -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
+       -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
+       -V monostyle="$monofont" \
+       -V   baseurl="$baseurl" 
 
 # Time now to compile the posts themselves
 
-for blogpost in $(ls posts/*-*.md); do 
+for blogpost in posts/*-*.md; do 
 
     fdate=$(echo $blogpost | cut -d'/' -f2 | cut -d'-' -f1,2,3)
     pdate=$(date -u --date=$fdate '+%d %b %Y')
+    slug=posts/$(basename $blogpost .md)
 
 pandoc --to=html5 --from markdown+smart+yaml_metadata_block $blogpost \
-       --title-prefix="$site_id · " --template templates/article.html \
-       -o posts/"$(basename $blogpost .md).html" \
-       -V masthead="$(cat $pagehead)" \
-       -V  sidebar="$(cat $pageside)" \
-       -V   footer="$(cat $pagefoot)" \
+     --title-prefix="$site_id · " --template templates/article.html \
+       -o     $slug".html" \
+       -V  masthead="$(cat $pagehead)" \
+       -V   sidebar="$(cat $pageside)" \
+       -V    footer="$(cat $pagefoot)" \
        -V textstyle="$textfont:ital,wght@0,400;0,700;1,400;1,700" \
        -V headstyle="$logofont:ital,wght@0,400;0,700;0,900;1,400;1,700" \
        -V monostyle="$monofont" \
-       -V baseurl="$baseurl" \   
-  	   -V year="$(date -u +%Y)" &
+       -V published="$pdate" \
+       -V   baseurl="$baseurl"   &
 done
+
 for pid in $(jobs -p); do
     wait $pid
 done
@@ -319,15 +418,17 @@ for post in $(find posts -name "*.html" | sed -e 's/posts\///'); do
   echo $(url $post) >> $sitemap
 done
 
-for pcat in $(find categories -name "*.html" | sed -e 's/categories\///'); do
+for pcat in $(find categorias -name "*.html" | sed -e 's/categorias\///'); do
   echo $(url $pcat) >> $sitemap
 done
 
-for ptag in $(find tags -name "*.html" | sed -e 's/tags\///'); do
+for ptag in $(find assuntos -name "*.html" | sed -e 's/assuntos\///'); do
   echo $(url $ptag) >> $sitemap
 done
 
 printf "</urlset>\n" >> $sitemap
 
 # Make the atom feed
+
+
 

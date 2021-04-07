@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$>
   <head>
@@ -45,7 +44,7 @@ $endif$
      <h1 class="header">$title$</h1>
 	  
 	  <div id="main-content">
-		  <div class="published">Publicado em: $publishdate$</div>
+		  <div class="published">Publicado em: $published$</div>
 			  $body$
 		  <div id="categories"><b>Arquivado em: </b>
 			  $for(categories)$
@@ -55,7 +54,7 @@ $endif$
 		  
 		  <div id="tags"><b>Assuntos: </b>
 			  $for(tags)$
-			  <a href="/tags/$tags$.html">$tags$</a>
+			  <a href="/assuntos/$tags$.html">$tags$</a>
 			  $endfor$
 		  </div>
 		  

@@ -15,7 +15,7 @@
   		<ul id="links-menu">
    			<li><a title="Blog" href="/posts/index.html">Arquivo do Blog</a></li>
    			<li><a title="Categorias" href="/categorias/index.html">Categorias</a></li>
-   			<li><a title="Assuntos" href="/tags/index.html">Assuntos</a></li>
+   			<li><a title="Assuntos" href="/assuntos/index.html">Assuntos</a></li>
    			<li><a title="Feed" href="/feed.xml">Feed (Atom)</a></li>
    		</ul>
  	</div>

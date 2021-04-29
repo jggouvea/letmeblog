@@ -1,0 +1,41 @@
+<div role="navigation" class="site-navigation main-navigation">
+  <div class="menu-navigation-container">
+    <ul id="menu-navigation" class="menu">
+      <li><a title="Primeira Página" href="/">Início</a></li>
+	  <li><a title="Conteúdo priorizado" href="/pages/portfolio.html">Portfólio</a></li>
+      <li><a title="Obras publicadas" href="/pages/livros.html">Publicações</a></li>
+      <li><a title="Referências e backlinks" href="/pages/mencoes.html">Menções</a></li>
+      <li><a title="Trajetória do Blog" href="/pages/historia.html">História</a></li>
+      <li><a title="Biografia do autor" href="/pages/bio.html">Quem Sou</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="blog-links">
+  <ul id="links-menu">
+    <li><a title="Arquivo" href="/posts/index.html">Blog</a></li>
+    <li><a title="Categorias" href="/categorias/index.html">Categorias</a></li>
+    <li><a title="Assuntos" href="/assuntos/index.html">Assuntos</a></li>
+    <li><a title="Lista de artigos" href="/arquivos/index.html">Arquivos</a></li>
+    <li><a title="Atom.xml Feed" href="/atom.xml">Assinatura</a></li>
+  </ul>
+</div>
+
+<div id="googleads-side" class="widget">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle" data-ad-client="ca-pub-7546610858099221"
+    data-ad-slot="7567082103" data-ad-format="auto" data-full-width-responsive="true">
+  </ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<p class="widget">No ar desde<br /><span class="stats">20/06/2010</span>,</p>
+
+<div id="meta" class="widget">
+  <ul id="meta-links">
+ 	<li><span class="stats">POSTCOUNT</span> posts,</li>
+    <li><span class="stats">CATCOUNT</span> categorias,</li>
+    <li><span class="stats">TAGCOUNT</span> assuntos,</li>
+    <!-- <li><span class="stats">492</span> comentários.</li> -->
+  </ul>
+</div>

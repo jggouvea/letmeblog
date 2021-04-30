@@ -18,36 +18,42 @@ $if(tags)$
     <meta name="keywords" content="$for(tags)$$tags$$sep$, $endfor$" />
 $endif$
     <meta property="og:type" content="website" />
-<!-- Font Stylesheets --> 
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
+	
+	<!-- Font Stylesheets --> 
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
 $if(headfont)$
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
 $endif$
-<!-- Local Stylesheets -->
-<link rel="stylesheet" media="screen" href="/common.css" />
-<link rel="stylesheet" media="only screen and (max-width: 599px)" href="/mobile.css" />
-<link rel="stylesheet" media="only screen and (min-width: 600px)" href="/desktp.css" />
-<link rel="stylesheet" media="screen" href="/content.css" />
-<link href="atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
-<!-- We're using FontAwesome, though we don't know much about what we can do with it -->
-<script src="https://kit.fontawesome.com/a64519a0e0.js" crossorigin="anonymous"></script>
+	<!-- Local Stylesheets -->
+	<link rel="stylesheet" media="screen" href="/common.css" />
+	<link rel="stylesheet" media="only screen and (max-width: 599px)" href="/mobile.css" />
+	<link rel="stylesheet" media="only screen and (min-width: 600px)" href="/desktp.css" />
+    <link rel="stylesheet" media="screen" href="/content.css" />
+	
+	<link href="atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+	<!-- We're using FontAwesome, though we don't know much about what we can do with it -->
+	<script src="https://kit.fontawesome.com/a64519a0e0.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-<div id="masthead">
-<div id="site-name"><a href="/" title="$site_id$" rel="home">$site_id$</a></div>
-  	<div id="site-description" title="$site_desc$">$site_desc$</div>
+	<div id="masthead">
+   	<div id="site-name"><a href="/" title="$site_id$" rel="home">$site_id$</a></div>
+   	<div id="site-description" title="$site_desc$">$site_desc$</div>
 	<div id="site-data">
 	<span id="byline" title="$author$">by $signature$</span>
 	<span id="update">$updmsg$<span class="date">$update$</span></span>
 	<span id="tag">DESDE 2010</span></div>
-</div>
-
-<div id="sidebar">
+	</div>
+	  
+    <div id="sidebar">
 	  $sidebar$
-</div>
-<div id="main"><h1 class="header">$title$</h1>
-	<div id="main-content">
+    </div>
+    
+	<div id="main">
+  
+     <h1 class="header">$title$</h1>
+	  
+	  <div id="main-content">
 		$if(published)$
 		  <div class="published">Publicado em: $published$</div>
 		$endif$
@@ -60,8 +66,18 @@ $endif$
 		$table-of-contents$
 		</div>
 		$endif$
+
 		
 			  $body$
+
+		<div id="footlinks">	  
+		$if(after)$
+		<span class="after"><a href="$after$">Pr&oacute;xima</a></span>
+		$endif$
+			  
+		$if(before)$
+		<span class="before"><a href="$before$">Anterior</a></span>
+		$endif$
 		
 		$if(published)$
 			<div id="categories"><b>Arquivado em: </b>
@@ -76,15 +92,18 @@ $endif$
 			  $endfor$
 			</div>
 		$endif$
+		</div>
 
-	</div>
-</div>
-<div id="footer">
+		  
+	  </div>
+		  
+	  </div>
+	
+	  <div id="footer">
 		  $for(include-after)$
 		  $include-after$
 		  $endfor$
 		  $footer$
-</div>
-
-</body>
+     </div>
+  </body>
 </html>

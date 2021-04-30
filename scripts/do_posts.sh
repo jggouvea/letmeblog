@@ -1,15 +1,15 @@
 #!/bin/sh
 source scripts/site_vars.sh
 
-echo "Now we must compile the posts themselves,
-This will take long time."
+find src/posts/ -name \*.md | sort > manifest.txt
 
-for blogpost in `find src/posts -type f -iname \*.md`; do 
+for blogpost in `find src/posts -name \*.md`; do 
 
     fdate=$(echo $blogpost | cut -d'/' -f3 | cut -d'-' -f1,2,3)
     pdate=$(date -u --date=$fdate '+%d/%m/%Y')
     slug=$(basename $blogpost .md)
-    
+	befo=$(grep -B 1 $blogpost manifest.txt | sed '2d' | sed 's/src//' | sed 's/md/html/')
+	aftr=$(grep -A 1 $blogpost manifest.txt | sed '1d' | sed 's/src//' | sed 's/md/html/')
 echo "Compiling $slug"
 
 pandoc --to=html5 --from $panopts  $blogpost \
@@ -26,14 +26,13 @@ pandoc --to=html5 --from $panopts  $blogpost \
        -V    updmsg="$updmsg" \
        -V    update="$update" \
        -V published="$pdate" \
+	   -V    before="$befo" \
+	   -V     after="$aftr" \
        -V   baseurl=".." -V lang="pt"  &
 done
 
 for pid in $(jobs -p); do
     wait $pid
 done
-
-find src/posts/ -type f -iname \*.md | sort -r > manifest.txt
-mv manifest.txt src/posts/manifest.txt
 
 echo "Finished compilation of all post pages."

@@ -4,19 +4,19 @@ source scripts/site_vars.sh
 
 rm -f recent.txt 
 
-for rec in $(find src/posts -type f -iname \*.md | sort -ur | head -n 6)
+for recent in $(find src/posts -type f -iname \*.md | sort -ur | head -n 6)
 do 
-entry="$(basename $rec .md).html"
-title=$(grep "title: " $rec | cut -d'"' -f2)
+entry="$(basename $recent .md).html"
+title=$(grep "title: " $recent | cut -d'"' -f2)
 plink="posts/$entry"
-teaser=$(cat $rec | sed -e '1,/^$/d' | sed '/^$/,$d' | pandoc ) 
-cover=$(grep "coverImage:" $rec | cut -d'"' -f2)
-date=$(grep "date: " $rec | cut -d' ' -f2 | cut -d'"' -f2)
+teaser=$(cat $recent | sed -e '1,/^$/d' | sed '/^$/,$d' | pandoc ) 
+cover=$(grep "coverImage:" $recent | cut -d'"' -f2)
+date=$(grep "date: " $recent | cut -d' ' -f2 | cut -d'"' -f2)
 pdate=$(date -u --date=$date '+%d/%m/%Y')
 
 if [ ! -z "$cover" ]; 
 then 
-coverpic='<figure class="thumb"><img src="/images/$cover" /></figure>'
+coverpic="<figure class=\"thumb\"><img src=\"/images/$cover\" alt=\"post thumbnail\" /></figure>"
 else
 coverpic=""
 fi
@@ -24,7 +24,7 @@ fi
 
 echo "
 
-<div class=\"recent-posts\">
+<div class="recent-posts">
 ## [$title]($plink)
 
 $coverpic $teaser

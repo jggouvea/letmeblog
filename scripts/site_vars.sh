@@ -52,6 +52,3 @@ headfont="cmu-bright"
 
 # But exactly how will I evoke pandoc
 panopts="markdown+smart+yaml_metadata_block+implicit_figures"
-
-# Ensure that the html template is always up to date with any
-# changes made to its constituent parts.

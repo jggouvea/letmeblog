@@ -1,15 +1,37 @@
 # `letmeblog`
 A static blog compiler made purely in shell scripting, using 
 [Markdown](http://markdownguide.org) as the source format and
-[Pandoc](http://www.pandoc.org) as the backend.
+[Pandoc](http://www.pandoc.org) as the backend, with the help 
+of [GNU Coreutils](https://www.gnu.org/software/coreutils/coreutils.html).
 
 Directly inspired by [Jilles van Gurp](https://github.com/jillesvangurp/www.jillesvangurp.com),
 who was the first (afaik) to use custom `bash` scripts to evoke 
 Pandoc and build a static site from a set of Markdown files 
 exported from Wordpress.
 
-Also inspired from a set of bash scripts from around 2000 which
-I once used to compile a blog using HTML snippets.
+## Implemented features
+- Posts (content sorted by date)
+- Pages (fixed content)
+- Feed (in Atom format)
+- Sitemap (in XML format)
+- Categories & Tags (with their respective index pages)
+- Archives page
+- "Before" and "After" links in post footer
+- Pinned post
+- Landing page with recent posts
+
+## Planned features
+- Use `gpp` to improve source processing
+- Build ebooks and printable books from anthologies of 
+  posts
+- Automated FTP upload
+- Code cleanup for speed
+- Makefile (for those of you who like automation, unlike me)
+- Comment system
+- Some kind of local post search
+- Better handling of figure environments and embedded video
+- Improving user experience with `.htaccess`
+- SEO using `robots.txt`
 
 ## Design goals
 

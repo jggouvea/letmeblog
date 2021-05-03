@@ -3,7 +3,7 @@ source scripts/site_vars.sh
 
 find src/posts/ -name \*.md | sort > manifest.txt
 
-for blogpost in `find src/posts -name \*.md`; do 
+for blogpost in `find src/posts -name \*.md | sort`; do 
 
     fdate=$(echo $blogpost | cut -d'/' -f3 | cut -d'-' -f1,2,3)
     pdate=$(date -u --date=$fdate '+%d/%m/%Y')

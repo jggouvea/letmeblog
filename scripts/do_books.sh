@@ -24,18 +24,28 @@ $teaser
 done
 
 pandoc --to=html5 --from $panopts  $page $books   \
-     --title-prefix="$site_id · " --template templates/blog.html \
        -o pages/livros.html \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-      -V      text="$text" \
-       -V      head="$head" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl=".." -V lang="pt"
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  postcount="$postcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
 
 echo "Book list page updated..."

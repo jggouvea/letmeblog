@@ -43,20 +43,30 @@ echo "</div>" >> $ind
 echo "Compiling tag index page."
 
 pandoc --to=html5 --from $panopts  $ind   \
-     --title-prefix="$site_id · " --template templates/blog.html \
        -o "$tagprefix/$tag/$(basename $ind .txt).html" \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V  textfont="$textfont" \
-       -V  headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl=".." -V lang="pt"
-       
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
+
 done
 
 echo "Finished populating tags,
@@ -121,19 +131,29 @@ echo "Tag index prepared.
 Will compile the tag index page..."
 
 pandoc --to=html5 --from $panopts  $tagprefix/index.txt   \
-     --title-prefix="$site_id · " --template templates/blog.html \
        -o $tagprefix/index.html \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V  textfont="$textfont" \
-       -V  headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl=".." -V lang="pt"
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
 
 sed -z 's/<table>/<table class=\"back\">/2' $tagprefix/index.html > posts.htm
 

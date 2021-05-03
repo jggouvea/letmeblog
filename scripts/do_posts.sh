@@ -13,22 +13,29 @@ for blogpost in `find src/posts -name \*.md`; do
 echo "Compiling $slug"
 
 pandoc --to=html5 --from $panopts  $blogpost \
-     --title-prefix="$site_id · " --template templates/blog.html \
        -o     posts/$slug".html" \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V      textfont="$textfont" \
-	   -V      headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V published="$pdate" \
-	   -V    before="$befo" \
-	   -V     after="$aftr" \
-       -V   baseurl=".." -V lang="pt"  &
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"  &
 done
 
 for pid in $(jobs -p); do

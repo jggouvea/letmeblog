@@ -51,19 +51,29 @@ do
 done
 
 pandoc --to=html5 --from $panopts       $ind  \
-     --title-prefix="$site_id  · " --template templates/blog.html \
        -o     $archive/$Year/index.html   \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V  textfont="$textfont" \
-       -V  headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl="$baseurl" -V lang="pt"
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
 done
 
 echo "---
@@ -85,38 +95,58 @@ cat tab.txt >> $archive/index.txt
 rm -r ylinks.txt yyears.txt
 
 pandoc --to=html5 --from $panopts       $archive/index.txt  \
-     --title-prefix="$site_id  · "  --template templates/blog.html \
        -o     $archive/index.html   \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V  textfont="$textfont" \
-       -V  headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl="$baseurl" -V lang="pt"
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
 
 sed -i 's/<table>/<table class="years">/g' $archive/index.html
 	   
 cat tab.txt >> posts/index.txt
 
 pandoc --to=html5 --from $panopts       posts/index.txt  \
-     --title-prefix="$site_id  · "  --template templates/blog.html \
        -o     posts/index.html   \
-       -V   sidebar="$(cat $pageside)" \
-       -V    footer="$(cat $pagefoot)" \
-       -V  textfont="$textfont" \
-       -V  headfont="$headfont" \
-       -V   site_id="$site_id" \
-       -V site_desc="$site_desc" \
-       -V    author="$author" \
-       -V signature="$signature" \
-       -V    updmsg="$updmsg" \
-       -V    update="$update" \
-       -V   baseurl="$baseurl" -V lang="pt"
+    --title-prefix="$site_id · " \
+	--template templates/blog.html \
+	-V    site_id="$site_id" \
+	-V  site_desc="$site_desc" \
+	-V     author="$author" \
+	-V  signature="$signature" \
+	-V     updmsg="$updmsg" \
+	-V     update="$update" \
+	-V  published="$pdate" \
+	-V  catprefix="$catprefix" \
+	-V   catcount="$catcount" \
+	-V  tagprefix="$tagprefix" \
+	-V   tagcount="$tagcount" \
+	-V  postcount="$postcount" \
+	-V    archive="$archive" \
+	-V    fonturl="$fonturl" \
+	-V   textfont="$textfont" \
+	-V   headfont="$headfont" \
+	-V fontenctxt="$fontenctxt" \
+	-V fontenchdr="$fontenchdr" \
+	-V    baseurl="$baseurl" \
+	-V       lang="pt"
 
 	   
 sed '0,/<table>/{s/<table>/<table class="blog-header">/}' posts/index.html > posts.htm

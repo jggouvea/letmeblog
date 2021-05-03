@@ -21,10 +21,10 @@ do
  	plink=$(echo $(basename $blogpost .md).html)
  	title=$(grep -e "title:" $blogpost | cut -d':' -f2 | cut -d'"' -f2)
  	
- if [ $pyear != $current_year ]; then
+ if [ $pyear != $this_year ]; then
     echo -e "\n## $pyear\n" >> $temp
  fi
- current_year=$pyear
+ this_year=$pyear
  echo "- <b class=\"pdate\">$pdate<b> - [$title]($plink)">>$temp
 done
 

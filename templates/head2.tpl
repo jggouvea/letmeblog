@@ -1,5 +1,5 @@
 <!-- Font Stylesheets --> 
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
+<link rel="stylesheet" media="screen" href="$fonturl$/$textfont$$fontenctxt$" type="text/css"/>
 $if(headfont)$
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
+<link rel="stylesheet" media="screen" href="$fonturl$/$headfont$$fontenchdr$" type="text/css"/>
 $endif$

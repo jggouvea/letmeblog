@@ -1,5 +1,0 @@
-<div id="masthead">
-	<div id="site-name"><a href="/" title="Letras Elétricas" rel="home">Letras Elétricas</a></div>
-	<div id="site-description" title="Textões e ficções sem compromisso">Textões e ficções sem compromisso</div>
-	<div id="tag"><span class="tag">DESDE<br/>2010</span></div>
-</div>

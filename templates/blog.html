@@ -18,42 +18,78 @@ $if(tags)$
     <meta name="keywords" content="$for(tags)$$tags$$sep$, $endfor$" />
 $endif$
     <meta property="og:type" content="website" />
-	
-	<!-- Font Stylesheets --> 
-	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
+<!-- Font Stylesheets --> 
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
 $if(headfont)$
-	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
 $endif$
-	<!-- Local Stylesheets -->
-	<link rel="stylesheet" media="screen" href="/common.css" />
-	<link rel="stylesheet" media="only screen and (max-width: 599px)" href="/mobile.css" />
-	<link rel="stylesheet" media="only screen and (min-width: 600px)" href="/desktp.css" />
-    <link rel="stylesheet" media="screen" href="/content.css" />
-	
-	<link href="atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
-	<!-- We're using FontAwesome, though we don't know much about what we can do with it -->
-	<script src="https://kit.fontawesome.com/a64519a0e0.js" crossorigin="anonymous"></script>
-  </head>
+<!-- Local Stylesheets -->
+<link rel="stylesheet" media="screen" href="/common.css" />
+<link rel="stylesheet" media="only screen and (max-width: 599px)" href="/mobile.css" />
+<link rel="stylesheet" media="only screen and (min-width: 600px)" href="/desktp.css" />
+<link rel="stylesheet" media="screen" href="/content.css" />
+<link href="atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+<!-- We're using FontAwesome, though we don't know much about what we can do with it -->
+<script src="https://kit.fontawesome.com/a64519a0e0.js" crossorigin="anonymous"></script>
+<script async 
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7546610858099221"
+crossorigin="anonymous"></script>
+</head>
 
-  <body>
-	<div id="masthead">
-   	<div id="site-name"><a href="/" title="$site_id$" rel="home">$site_id$</a></div>
-   	<div id="site-description" title="$site_desc$">$site_desc$</div>
+<body>
+<div id="masthead">
+<div id="site-name"><a href="/" title="$site_id$" rel="home">$site_id$</a></div>
+  	<div id="site-description" title="$site_desc$">$site_desc$</div>
 	<div id="site-data">
 	<span id="byline" title="$author$">by $signature$</span>
 	<span id="update">$updmsg$<span class="date">$update$</span></span>
 	<span id="tag">DESDE 2010</span></div>
-	</div>
-	  
-    <div id="sidebar">
-	  $sidebar$
-    </div>
-    
-	<div id="main">
-  
-     <h1 class="header">$title$</h1>
-	  
-	  <div id="main-content">
+</div>
+<div id="sidebar">
+<div role="navigation" class="site-navigation main-navigation">
+  <div class="menu-navigation-container">
+    <ul id="menu-navigation" class="menu">
+      <li><a title="Primeira Página" href="/">Início</a></li>
+	  <li><a title="Conteúdo priorizado" href="/pages/portfolio.html">Portfólio</a></li>
+      <li><a title="Obras publicadas" href="/pages/livros.html">Publicações</a></li>
+      <li><a title="Referências e backlinks" href="/pages/mencoes.html">Menções</a></li>
+      <li><a title="Trajetória do Blog" href="/pages/historia.html">História</a></li>
+      <li><a title="Biografia do autor" href="/pages/bio.html">Quem Sou</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="blog-links">
+  <ul id="links-menu">
+    <li><a title="Arquivo" href="/posts/index.html">posts</a></li>
+    <li><a title="Categorias" href="/$catprefix$/index.html">$catprefix$</a></li>
+    <li><a title="Assuntos" href="/$tagprefix$/index.html">$tagprefix$</a></li>
+    <li><a title="Lista de artigos" href="/$archive$/index.html">$archive$</a></li>
+    <li><a title="Atom.xml Feed" href="/atom.xml">feed</a></li>
+  </ul>
+</div>
+
+<div id="googleads-side" class="widget">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle" data-ad-client="ca-pub-7546610858099221"
+    data-ad-slot="7567082103" data-ad-format="auto" data-full-width-responsive="true">
+  </ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<p class="widget">No ar desde<br /><span class="stats">20/06/2010</span>,</p>
+
+<div id="meta" class="widget">
+  <ul id="meta-links">
+ 	<li><span class="stats">$postcount$</span> posts,</li>
+    <li><span class="stats">$catcount$</span> categorias,</li>
+    <li><span class="stats">$tagcount$</span> assuntos,</li>
+    <!-- <li><span class="stats">492</span> comentários.</li> -->
+  </ul>
+</div>
+</div>
+<div id="main"><h1 class="header">$title$</h1>
+	<div id="main-content">
 		$if(published)$
 		  <div class="published">Publicado em: $published$</div>
 		$endif$
@@ -66,18 +102,8 @@ $endif$
 		$table-of-contents$
 		</div>
 		$endif$
-
 		
 			  $body$
-
-		<div id="footlinks">	  
-		$if(after)$
-		<span class="after"><a href="$after$">Pr&oacute;xima</a></span>
-		$endif$
-			  
-		$if(before)$
-		<span class="before"><a href="$before$">Anterior</a></span>
-		$endif$
 		
 		$if(published)$
 			<div id="categories"><b>Arquivado em: </b>
@@ -92,18 +118,9 @@ $endif$
 			  $endfor$
 			</div>
 		$endif$
-		</div>
 
-		  
-	  </div>
-		  
-	  </div>
-	
-	  <div id="footer">
-		  $for(include-after)$
-		  $include-after$
-		  $endfor$
-		  $footer$
-     </div>
-  </body>
-</html>
+	</div>
+</div>
+<div id="footer">
+</div>
+</body></html>

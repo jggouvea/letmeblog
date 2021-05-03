@@ -6,7 +6,3 @@
 	<span id="update">$updmsg$<span class="date">$update$</span></span>
 	<span id="tag">DESDE 2010</span></div>
 </div>
-
-<div id="sidebar">
-	  $sidebar$
-</div>

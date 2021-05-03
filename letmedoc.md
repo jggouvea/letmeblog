@@ -79,83 +79,161 @@ with creative content, I happily give up automation for:
 4. **Speed**.
 
 Retaking control of my content was one of the key reasons why I 
-left WordPress and eventually decided to create my own blogging way,
-after briefly trying alternatives like [Jekyll](https://jekyllrb.com),
-[Pelican](https://blog.getpelican.com) and [Zola](https://www.getzola.org).
+left WordPress and eventually decided to create my own blogging
+way. In fact, I actually tried to use existing alternatives, like
+[Jekyll](https://jekyllrb.com), [Zola](https://www.getzola.org)
+and [Pelican](https://blog.getpelican.com); but each of them had
+something to displease me or to stop me from using it:
 
-With WordPress, I was always under the impression that my content
-was locked up in a binary format (SQL database) prone to binary 
-corruption and requiring frequent backups which used a lot of
-bandwidth and generated big downloads. Some of the tools to back up
-the database were proprietary or even required payment, and none of
-them gave me actual control of my content.
+* **Jekyll** is based on a scripting language (Ruby) that's not 
+  well integrated into [Arch Linux](https://www.archlinux.org).
+  Jekyll depends on ruby "gems" that are not packaged in Arch, 
+  not even in the [AUR](https://aur.archlinux.org) and some of
+  them don't even install any more. Also, using Jekyll would 
+  require learning a lot about the Ruby language, something that
+  I shouldn't need to do only because I wanted to blog.
+* **Zola** had me trying to set it up for an entire day and I 
+  didn't even see a proper homepage. Everything seems to work 
+  from inside a binary and the documentation, though existing,
+  is far from easy to understand. I quickly reallised that I 
+  would have to learn a lot about Zola before I could even put
+  my site back up. By the way, Zola also seems to be more a
+  site engine than a generator and I wasn't sure whether I'd be
+  able to host it where I park my domain.
+* **Pelican**, like Jekyll, depends on software (in this case
+  [Python modules](https://pypi.org) that's not readily available
+  in Arch Linux. I really love the idea of learning Python, since
+  it's so ubiquitious and useful, but, unfortunately, it is not
+  a static site generator; it has to be hosted and it's not that
+  easy to find a web hosting service which will give you Python
+  access. Anyway, the idea of having my site dynamically 
+  generated online had already made me cringe for years and I
+  really wanted something different. I would have used Pelican
+  if it could *generate* my site offline so I could upload it,
+  but I decided not to even try hosting it.
 
-This situation worsened after WordPress became incompatible with a 
-number of old plug-ins which allowed easy Markdown import and export,
-or even storage of content in Markdown format. The new "Gutenberg"
+The reason why I wanted to so bad to generate my site offline and
+only then upload it was that, with WordPress, I was always under 
+the impression that my content was locked up in a binary format 
+(SQL database) prone to corruption and requiring frequent backups
+which used a lot of bandwidth and generated big downloads. Some 
+of the tools to back up the database were proprietary or even 
+required payment, and none of them gave me actual control of my
+content (as we'll see). Using either Zola or Pelican would have
+hurt even more, because these being niche CMS software, they'd be
+less likely to have readily available backup and export plug-ins.
+
+This sensation of being locked up only worsened after WordPress 
+became incompatible with a number of old plug-ins which allowed 
+easy Markdown import, export and integration. The new "Gutenberg"
 editor rubbed salt onto the wound, as it was now impossible to
-simply write my content elsewhere and paste it into the editor.[^gu]
+simply write content elsewhere and paste it into the editor.[^gu]
 
-[^gu]: Well, _in theory_ you can do that, but Gutenberg goes out of
-its way to corrupt the content you paste. You actually spend more
-time reviewing your post than you would if you had just written it
-in Gutenberg already.
+[^gu]: Well, _in theory_ you can do that, but Gutenberg goes out 
+of its way to corrupt the content you paste. You actually spend 
+more time reviewing your post than you would if you had just 
+written it in Gutenberg already.
 
 Content lock-up is apparently becoming a trend, even in so-called
 "Open Source" software, like WordPress. And that's intollerable
-because I want to keep my content _mine_ in the first place.
+because I want to keep my content _mine_ in the first place. 
 
-Another problem with WordPress blogs, which seems to be replicated
-in many other platforms, including some that purport to use Markdown
-inputs, is that you don't actually control the process by which the
-source file becomes a blog. There is a template, there are scripts 
-you will host or run and there are some source files to be processed 
---- but the actual conversion isn't transparent and you can't 
-interfere easily with it.
+In the later days of my blog hosted as a WordPress site, I had 
+another annoyance which I couldn't solve at all: every time I
+logged into the Control Panel there was an alert about my admin
+e-mail, asking me whether I still had access to the address
+<contato@letraseletricas.blog.br>, which I didn't. WordPress
+then warned me that only through that email address I would be
+able to restore my password, if my site was hacked. That really
+scared me, because, no matter what I did, _I could not_ change
+that administrator email in the Control Panel. I actually knew
+how to do it, I had found where to do it, I had made the change,
+but it never updated the page when I pressed the button and the
+"confirmation" email supposedly sent to new email address I had
+chosen would never arrive there (even in the spam folder). 
+Therefore, WordPress slowly freaked me into the conclusion that
+I had to save my files ASAP to prevent total data loss, and that
+I should delete and recreate the installation to prevent theft
+of my identity and rights. However, if I had to go through all
+of this, why would I simply return to WordPress? I am not some
+Windows user who's okay with the idea that periodically erasing
+and reinstalling everything is normal. Linux users don't take
+that for granted. This computer of mine has _never_ been 
+formatted. In fact, this computer has inherited the same SSD and
+the HD from a former one. This system I am using hs been rolling
+for about six years in a row, without reinstalling, and my files
+have been on this same Seagate 1TB HD for four years. Whenever
+I'm convinced that I must erase and reinstall a system, I take 
+that as an admission that system corrupts itself and is not able
+to protect my data. 
 
-`letmeblog` addresses these concerns by splitting the generation of
-the website in a set of scripts which can all be run separately,
-giving you control of what you are generating in each step. Moreover,
-by allowing you to stop and restart compilation at any time, it saves
-you time and processing power as you can prevent the full execution
-of a command that will _not_ generate your site cleanly.
+Another problem with WordPress, which seems to be replicated
+in other platforms, including some that purport to use Markdown
+inputs, is that you don't actually control the process by which
+the source file becomes a blog. There is a template, there are 
+scripts you will host or run and there are some source files to
+be processed --- but the actual conversion isn't transparent and
+you can't  interfere easily with it.
 
-Nowadays website content is _generated_ from source files, that's
-the way things are done. Source files can be reused for the production
-of different outputs, or for inclusion in other source files. In a
-traditional blog your content is rarely ever reusable. In fact, if 
-you want to generate e-books or PDFs from your content, you have to
-keep a separate source file offline, in your computer, which creates
-a permanent problem with versioning.
+`letmeblog` addresses these concerns by splitting the generation
+of the website in a set of scripts which can be run separately,
+giving you control of what you generating at each step. Moreover,
+by allowing you to stop and restart compilation at any time, it 
+saves you time and processing power as you can prevent the full 
+execution of a command that will _not_ generate the site cleanly.
+
+Website content is _generated_ from source files, that's a given,
+but it should be _reusable_. Big players; like Google, Apple,
+Microsoft and Facebook; have their own in-house ways to process
+the data you provide and reuse it as they wish, but they want to
+lock the data you provide so _you_ can't use it at will. Markdown
+is a tiny step towards retaking control of my content, since I
+can use the same source file to generate different types of
+content. Eventually, I'll migrate every single bit of content I
+have ever produced, so I can reuse and recombine it freely and at
+will. In a traditional, hosted blog, your content is rarely ever
+reusable. In fact, if you want to generate e-books or PDFs from 
+your content, you have to keep a separate source file offline, in
+your computer, which creates a problem with versioning.[^version]
+
+[^version]: That was something that hurt me for many years: I had
+to keep two versions of my content, one online, in the blog, and
+one offline, usually in OpenDocument format (but I actually used
+a smattering of different formats --- like LaTeX, LyX, RTF, HTML,
+plain text, Asciidoc and even Markdown. And it was never easy to
+keep tabs on versions and to keep backups up to date.
 
 With `letmeblog` you keep your content conveniently stored in 
 Markdown files, which you can reprocess to create different HTML
 versions, as well as producing EPUB, PDF or even MS Word versions,
-if need arises. You can keep your files versioned using `git` and 
-you can write scripts to recombine or split your source files to 
-produce different outputs.
+if need arises. You can even keep your files versioned;  using 
+tools `git` or `subversion`; not to mention the ability to back
+it up using `rsync` as well. You can also write scripts to split
+and recombine your source files to create different outputs. 
 
-And finally there is the problem of **speed**, which was my second
-biggest concern about WordPress, as my blog was growing ever slower
-as it grew in size. Every new page or post I added seemed to increase
-the performance overhead, as the database had to be queried multiple
-times by the server. As more visitors came, server overhead made the
-site unusable for long periods of time, causing my visitor count to
-drop from almos 200 a day to less than 70.
+And finally there is the problem of **speed**, which was my 
+second biggest concern about WordPress, as my blog was growing 
+ever slower as it grew in size. Every new page or post I added 
+seemed to increase the performance overhead, as the database had 
+to be queried multiple times by the server. As more visitors 
+came, server overhead made the site unusable for long periods of
+time, causing my visitor count to drop from almos 200 a day to
+less than 70.
 
-A static website has no such issues. Pages are served super-quickly
-as there is little processing to be done server-side. Granted, I have
-lost the ability to actually track my visitors, or to store their 
-comments, but both are blessings in disguise --- especially that about 
-comments, as most of these were spam anyway, and legit commentators
-often left garbage remarks which added little to the actual content.
-Social networks have largely replaced fora and comment systems, so
-there's no point trying to keep such things in my blog. 
+A static website would have no such issues. Pages are served 
+super-quickly, as there is little processing done server-side. 
+Granted, I have lost the ability to actually track my visitors,
+or to store their comments, but both are blessings in disguise 
+--- especially that about comments, as most of these were spam
+anyway, and legit commentators often left garbage remarks which 
+added little to the actual content. Social networks have largely 
+replaced fora and comment systems, so there's no point trying to 
+keep such things in my blog. 
 
 Very soon people will regard comment systems more or less like
-"[guestbooks](https://en.wikipedia.org/wiki/Guestbook)", which used
-to be all the rage around the turn of the century, but are now some
-relic that no cool website actually uses prominently.
+"[guestbooks](https://en.wikipedia.org/wiki/Guestbook)", which 
+used to be all the rage around the turn of the century, but are
+now some relic that no cool website actually uses prominently.
 
 As for visitor count, social network impact is a much more useful
 thing to measure. It doesn't matter, in terms of relevance, that 
@@ -179,23 +257,23 @@ to be run separately. I have developed my own scripts for most
 of the tasks and the similarities to be found don't result from
 plagiarism, but from the very nature of Pandoc, which takes a 
 limited set of command-line arguments. Even the template I use
-has been heavily modified from Pandoc's own HTML template, with
-a few hints taken from Jilles' template.
+is a custom one, though I have taken some cues from Pandoc's
+defaults, with a few hints from Jille's one.
 
-I do recognise that I have _built upon_ his work, and for that I
-duly give him credit, but I owe about as much to 
+I do recognise that I have _built upon_ his work quite a lot, and
+for that I duly give him credit, but I owe about as much to 
 [Stackexchange](https://stackoverflow.com)... if you know what I
-mean. Anyway, Jilles kindly put his work under the 
-[MIT/Expat license](https://mit-license.org/), which is a
-[copyleft](https://www.gnu.org/licenses/copyleft.html) license.
-Out of my own will, I would have rather used the 
+mean. That's a moot point, anyway, since he had kindly licensed 
+his work under the [MIT/Expat license](https://mit-license.org/),
+which is a [copyleft](https://www.gnu.org/licenses/copyleft.html)
+license. Out of my own will, I would have rather used the 
 [GPL](https://www.gnu.org/licenses/licenses.html), but, since
 Expat and GPL are compatible, it makes sense to keep his choice.
-Therefore, the scripts are provided under the MIT/Expat license,
-even the parts I developed autonomously.
+Therefore, the scripts and templates here are provided under the
+MIT/Expat license, even the parts I developed autonomously.
 
 # Scripts #
-The blog building system is made up of fourteen shell scripts, which
+Blog building system is made up of fourteen shell scripts, which
 you will put into a `scripts` directory under the build root:
 
 1. `get_cats.sh` 
@@ -213,11 +291,11 @@ you will put into a `scripts` directory under the build root:
 3. `do_atom.sh`
 4. `do_sitemap.sh`
 
-Scripts up to #5 are preprocessing steps (the first don't have to be
-run every time you update the blog). 
+Scripts up to #5 are preprocessing steps (the first don't have to
+be run every time you update the blog). 
 
-Scripts from #6 to #12 are compilation steps and should be always run
-whenever you:
+Scripts from #6 to #12 are compilation steps and should be always
+run whenever you:
 - Create a new post;
 - Categorise to a post;
 - Tag a post;
@@ -226,16 +304,19 @@ whenever you:
 - Create a new tag or delete one that existed;
 - Create a new category or delete one that existed.
 
-If you are unsure about the order you should run the scripts, you can
-use the mnemonic: "get, set, do". Never run a "set" script before you
-have run the "get" ones and never run a "do" script before running
-a "set" script. "Get" scripts only need to be run when you first build
-the blog, after that you can maintain them by hand. "Set" scripts only
-need to be run when you add new content. "Do" scripts need to be run
-every time.
+If you are unsure about the order you should run the scripts, use
+the mnemonic: "get, set, do". Never run a "set" script before you
+have run all that "get", never run a "do" script before running a
+"set" script. "Get" scripts only need to be run when you first 
+build the blog, after that you can maintain their output by hand.
+"Set" scripts only need to be run when you add a new post or if
+you decide to change the pinned post. "Do" scripts need to be run
+every time you add content. Run `do_atom.sh` if you add posts. 
+Run `do_sitemap.sh` if you add posts _or_ pages. You must run
+both if you _rename_ pages or posts.
 
-Unless otherwise specified, the scripts don't take arguments nor have
-options. Simply run them from the build root:[^buildroot]
+Unless otherwise specified, the scripts don't take arguments nor 
+have options. Simply run them from the build root:[^buildroot]
 
 [^buildroot]: For the purposes of this document, the term "build
 root" will be used for the working directory where you will compile
@@ -245,22 +326,24 @@ server, so you can develop the blog live, before you upload it.
 
 `sh scripts/do_home.sh`
 
-Other than that, you have some extra scripts, for specific purposes:
+Other than that, you have two specific scripts:
 
 1. `update_post.sh`
 2. `update_template.sh`
 
-`update_post.sh` is to recompile one single post, if you notice some
-problem specific to it. 
+`update_post.sh` is to recompile one single post, if you notice
+some problem specific to it. You can also use it instead of the
+`do_posts.sh` script to compile a single post if you are sure
+that the rest of the contents will not be affected.
 
 Usage: `sh scripts/update_post.sh src/posts/XXXX-XX-XX-postname.md`
 
-The script will silently and gently generate the HTML output in the
-`posts/` directory.
+The script will silently and gently generate the HTML output in 
+the `posts/` directory.
 
-`update_template.sh` is to regenerate the HTML template if you make
-changes to its parts. You will know why this is useful later in this
-document.
+`update_template.sh` is to regenerate the HTML template if you 
+make changes to its parts. You will know why this is useful later
+in this document.
 
 # Requirements #
 The scripts are quite simple and will probably work in any Linux
@@ -273,12 +356,13 @@ Pandoc
 `bash`
 : to actually execute the commands;[^bash]
 
-[^bash]: I have actually tested the script with `zsh` and it worked
-just fine. In fact, the early development was in `zsh`. I only moved
-back to `bash` because I noticed that it is more strict in syntax
-validation, which means that, unless I use "bashisms", a script that
-was developed and tested under `bash` is more likely to work with well
-under `zsh` than the other way around.
+[^bash]: I have actually tested the script with `zsh` and it 
+worked just fine. In fact, the early development was in `zsh`.
+I only moved back to `bash` because I noticed that it is more
+strict in syntax validation, which means that, unless I use 
+"bashisms", a script that was developed and tested under `bash`
+is more likely to work with well under `zsh` than the other way
+around.
 
 GNU "coreutils"
 : for source files preprocessing;
@@ -350,21 +434,18 @@ These files are not meant to be edited, unless you know well what
 you are doing and why. Their different functions are explained 
 further down.
 
-The actual templates you want to customise are called `sbar.txt` and 
-`footer.txt`. Other than that, you don't need to change any templates,
-just edit the variables file (`site_vars.sh`) in the `scripts` 
-directory and that will be used to fill in the placeholders.
+The actual templates you want to customise are called `sbar.txt` 
+and `foot.txt`. Other than that, don't change anything in the
+templates (unless you know what you are doing). Just edit the 
+variables file (`site_vars.sh`) in the `scripts` directory and 
+that will be used to fill in the placeholders.
 
-`sbar.txt` : is your navigation section, where you will write your
-navigation links and any other content you want to put in your 
-sidebar or menu.
+`sbar.txt` : is your navigation section, where you will write 
+your navigation links and any other content you want to put in
+your sidebar or menu.
 
 `footer.txt` : contains your copyright claim (if any) as well 
 as any messages you want to appear below every page.
-
-A file named `sidebar.txt` is created in the same directory by
-the output of the scripts --- it's safe to delete it whenever
-you want, but it will always come back, so don't bother.
 
 ## Source tree ##
 The blog source tree (`src/`) keeps the landing page info 
@@ -375,17 +456,101 @@ The blog source tree (`src/`) keeps the landing page info
 throughout the many phases of compilation, and HTML files 
 (suffix `.html`) are the output content produced by Pandoc.
 
-All site content must be writting in Markdown. You can
-use any Markdown features supported by Pandoc (do read
-their documentation and add the required extension code to
+All site content must be writting in Markdown. You can use any
+Markdown features supported by Pandoc (do read their 
+documentation and add the required extension code to 
 `src/site_vars.sh`). The default Pandoc invocation I use is
 `markdown+smart+yaml_metadata_block+implicit_figures`, which
 means "Pandoc's own markdown dialect, extended with smart
-punctuation, yaml metadata blocks and putting images in a
-'figure' environment by default". I find this setup pretty
-basic, but powerful enough to provide good quality. Unless
-you need something specific, like MathML, LaTeX output etc.,
-there is no need to change it.
+punctuation, yaml metadata blocks and putting images in a 
+'figure' environment by default". I find this setup pretty basic,
+but powerful enough to provide good quality. Unless you need 
+something specific, like MathML, LaTeX output etc., there is no
+need to change it.
+
+## Configuration variables ## 
+The scripts all rely on a file called `site_vars.sh` which must
+be put into the scripts directory. Your website will only compile
+if you provide _all_ following varibles in the format 
+`variable_name=\"variable_vale\"`.
+
+`site_id`
+: Your cool blog name.
+
+`site_desc`
+: A pithy quote to adorn your header. By default it comes
+  _below_ the site name.
+
+`baseurl`
+: Though most links are _relative_, some scripts need to know
+  the domain to access your site online.
+
+`author`
+: Your full name, under which all legal stuff should be filed.
+
+`signature`
+: Your public name, the one readers will see in the header.
+
+`first_year`
+: The foundation year of your blog.
+
+`catprefix`
+: The name you'll give to your blog categories. Useful for 
+  localisation, for instance, but you can use it to give your
+  categories some fancy name as well.
+
+`tagprefix`
+: The name you'll give to your blog tags. Useful for 
+  localisation, for instance, but you can use it to give your
+  tags some fancy name as well.
+
+`archive`
+: The name you'll give to your archive directory (posts filed
+  by year).
+
+`fonturl`
+: The service provider for your custom fonts. I like to use the
+  [Open Font Library](https://fontlibrary.org). To use them you
+  put `\"https://fontlibrary.org/face/\"` here.
+
+`textfont`
+: The font used to format the text in your pages. As a former 
+  user of [LaTeX](http://tug.org), I like to use "cmu-concrete"
+  for body copy. It's wide, clear, old-fashioned a bit odd.
+
+`headfont`
+: The font used to format the your headings. As a former 
+  user of [LaTeX](http://tug.org), I like to use "cmu-bright"
+  for body copy. It's wide, clear, old-fashioned a bit odd.
+
+`fontenctxt`
+: Information that needs to be suffixed to the font face name
+  for the textfont. If you use the Open Font Library, don't add
+  this, or leave it blank. Google Fonts require this.
+
+`fontenchdr`
+: Information that needs to be suffixed to the font face name
+  for the header font. If you use the Open Font Library, don't 
+  add this, or leave it blank. Google Fonts require this.
+
+`panopts`
+: A set of instructions and options to be passed on to Pandoc
+  at compile time. I have settled for 
+  `markdown+smart+yaml_metadata_block+implicit_figures`, but you
+  can change it if you wish.
+
+Besides the variables above, which are all custom, the following
+are not meant to be changed at all. Just copy-paste these there
+and never change them, unless you know _very well_ what you are
+doing. You can change them if you notice that I have changed 
+them in the documentation as well:
+
+	this_year=$(date '+%Y')
+	postcount=$(find src/posts -name \*.md | wc -l)
+	tagcount=$(cat taglist.txt | wc -l)
+	catcount=$(cat catlist.txt | wc -l)
+	last_post=$(find src/po*/$this_year-*.md -type f | tail -n 1)
+	update=$(date -r $last_post '+%d de %B de %Y às %H:%M')
 
 ### The landing page ###
 The default landing page contains three blocks of content:
@@ -411,9 +576,9 @@ Anything else you want to change (or if you want to add content
 after the recent posts), you must change the script that compiles
 the homepage.[^rposts]
 
-[^rposts]: Don't mind the thumbnails, they are already honoured by
-the scripts if you include a "coverImage" directive in your `yaml`
-metadata.
+[^rposts]: Don't mind the thumbnails, they are already honoured 
+by the scripts if you include a "coverImage" directive in your
+`yaml` metadata.
 
 ### Fixed pages ###
 Fixed pages have plain names, preferably short and easy to 
@@ -521,7 +686,6 @@ can customise, of course. Three of them are required and a fourth
 you can add if you wish.
 
 ## The HTML5 template ##
-
 The default Pandoc HTML5 template is pretty basic and nothing
 much needs to be changed in it, unless you know very well what
 you are doing.
@@ -529,7 +693,7 @@ you are doing.
 The beginning part is especially unchangeable:
 
 ```{.html}
-include{templates/head1.tpl}
+\include{templates/head1.tpl}
 ```
 
 Now comes styling. I have used open-source fonts from the 
@@ -541,8 +705,8 @@ file as the "text" and "head" variables and then follow the
 guidelines for font-face choosing, which are found in the CSS
 files themselves.[^ofl]
 
-[^ofl]: I don't particularly love the Open Font Library, but... hey!
-They aren't Google!
+[^ofl]: I don't particularly love the Open Font Library, but... 
+hey! They aren't Google!
 
 ```{.html}
 \include{templates/head2.tpl}
@@ -577,10 +741,11 @@ site header and the sidebar/menu.
 \include{templates/head6.tpl}
 ```
 
-The sidebar is actually a misnomer, as this is where navigation
-goes. It can be either a sidebar, if you are a conservative, like
-me, be styled in the most outlandish way you wish. Know your CSS
-and make it your way.
+The sidebar (not part of the template, but a custom input file
+that you must write yourself) is actually a misnomer, as this is
+where navigation goes. It can be either a sidebar, if you are a
+conservative, like me, be styled in the most outlandish way you
+wish. Know your CSS and make it your way.
 
 The main content area in the template is the same for both posts
 and pages: there are conditions put in place that will format
@@ -596,17 +761,6 @@ tags and publish dates to a page, they won't appear anywhere.
 
 And finally comes the footer area, which will just print the
 contents of your footer file.
-
-```{.html}
-\include{templates/foot.tpl}
-```
-
-Future versions of this may remove the sidebar and footer variables
-from Pandoc's evocation, as these can be more easily inserted directly
-into the template file. The reason why I have not yet done that is
-that having separate template bits and template inputs can preserve
-a way to insert content via command line, which _may_ be useful,
-though I am not yet sure when or how.
 
 ### The `sbar.txt` input file ###
 You can structure your navigation any way you want, but I advise
@@ -639,26 +793,26 @@ site has the following information in the footer:
 # Processing the blog #
 Blog processing is done in stages:
 
-1. Content creation (don't even start if you have nothing to post...);
+1. Content creation (don't start if you have nothing to post.);
 2. Folder setup (`mkdir` the places you will use, `chmod` the 
-   directories, `symlink` them, if need, edit the webserver config
-   if you plan to develop live etc.);
+   directories, `symlink` them, if need, edit the webserver 
+   config if you plan to develop live etc.);
 3. Variables setup (edit the `site_vars.sh` script);
-4. Preprocessing
-5. Compilation
-6. Upload
+4. Preprocessing;
+5. Compilation;
+6. Upload.
 
 This document is about steps 3 to 5. The first one you must do on
-your own (I can't provide any advice on that), the second has been
-explained [above](#folders) and the last one each user will choose
-to do differently.
+your own (I can't provide any advice on that), the second has 
+been explained [above](#folders) and the last one each user will
+choose to do differently.
 
 ## Setting up site variables ##
 The file `site_vars.sh` stores a series of variables that will be
-read by every other script from now on. It is an absolute requirement 
-that you edit it before you do anything else. I have provided a blank
-one, that you need to fill in. _Every variable is required_, though
-they some can have blank values.
+read by every other script from now on. You **must** edit it 
+before anything else. I have provided a blank one, that you need
+to fill in. _Every variable is required_, though they some can 
+have blank values.
 
 ```{.bash}
 \include{site_vars.sh}
@@ -719,14 +873,14 @@ root. This file is renewed every time the script is run.
 \include{scripts/get_tags.sh}
 ```
 
-In theory, you only need to run this script exactly _once_,
-when you setup the blog, if you have a large number of posts
-imported from a WordPress installation. If you are adding posts
-to your blog, _after_ you have compiled it, or if you are writing
-your blog from scratch, it's probably better to just curate
-yourself a list of tags named `taglist.txt` in the build root
-folder. Just put each tag in a line of its own, using underscores
-to link words, thus avoiding spaces in filenames.
+In theory, you only need to run this script exactly _once_, when
+you setup the blog, if you have a large number of posts imported
+from a WordPress installation. If you are adding posts to your 
+blog, _after_ you have compiled it, or if you are writing your 
+blog from scratch, it's probably better to just curate yourself a
+list of tags named `taglist.txt` in the build root folder. Just 
+put each tag in a line of its own, using underscores to link 
+words, thus avoiding spaces in filenames.
 
 ### Finding the recent posts ###
 Every time you add a new entry to your blog you must make it 
@@ -775,10 +929,10 @@ destroy the contents of the file containing your pinned post.
 **So, don't do that!**
 
 ## Compilation ##
-Because all scripts process the Markdown source files in the source
-tree and write to the output folders in the build root directory,
-they don't depend on the HTML output for anything. The "do" scripts
-can also be used in any order as well.[^order]
+Because all scripts process the Markdown source files in the 
+source tree and write to the output folders in the build root, 
+they don't depend on the HTML output for anything. The "do" 
+scripts can also be used in any order as well.[^order]
 
 [^order]: Though the `atom.xml` and `sitemap.xml` link to html 
 files, in practice they are produced by processing Markdown 
@@ -893,21 +1047,18 @@ provide at least one type of feed. I use an Atom feed because
 that was what Jilles used, but I will eventually find a way to do
 RSS 2.0 instead.
 
-
 ```{.bash}
 \include{scripts/do_atom.sh}
 ```
 
-I have actually made a few modifications to Jilles' script, though 
-it's still much the same and uses the same template. However, as you
-can see, the resulting `atom.xml` file is not well-formatted. There's
-a lot of room for improvements.
-
+I have actually made a few modifications to Jilles' script,
+though  it's still much the same and uses the same template.
+However, as you can see, the resulting `atom.xml` file is not
+well-formatted. There's a lot of room for improvements.
 
 ### Sitemap ###
 Sitemaps are useful to get yourself a higher SEO ranking. This
 script is basically the same as Jilles':
-
 
 ```{.bash}
 \include{scripts/do_sitemap.sh}
@@ -935,57 +1086,57 @@ My preferred upload method is the mirroring command from `lftp`:
 Which you will invoke _after_ logging into your FTP server using 
 `lftp` and changing your local directory to your build root.
 
-In case you didn't change directory before logging in, you can still
-do it with the command `lcd`, which takes the full path (unless you
-are changing into a subdirectory of the current folder).
+In case you didn't change directory before logging in, you can
+still do it with the command `lcd`, which takes the full path
+(unless you are changing into a subdirectory of the current).
 
 In _my case_, as an example, I do this:
 
 ```
 lftp -u myuser ftp.mydomain.com.br
 cd ..
-mirror -R -x templates -x src -x scripts --ignore-time public_html www
+mirror -R -x templates -x src -x scripts public_html www
 ```
 
-One good thing about the "mirror" command in `lftp` is that it will
-only transfer the files which have changed. This means it will 
-probably re-upload your entire set of HTML, as well as any files you
-have edited, but _not_ if you add the `--ignore-time` switch, which
-instructs `lftp` to only upload files that have been added or which
-have changed in bytesize.
+One good thing about the "mirror" command in `lftp` is that it 
+will only transfer the files which have changed. This means it 
+will  probably re-upload your entire set of HTML, as well as any
+files you have edited, but _not_ if you add the `--ignore-time`
+switch, which instructs `lftp` to only upload files that have
+been added or which have changed in bytesize.
 
 Recompiling your entire blog with the `do_posts.sh` script, for 
-instance, will change the HTML files timestamp, but if no change has
-been made, the size in bytes may still be the same, which will 
-prevent re-upload and save you bandwidth and time.
+instance, will change the HTML files timestamp, but if no change
+has been made, the size in bytes may still be the same, which
+will  prevent re-upload and save you bandwidth and time.
 
 ## To be added ##
-`letmeblog` is mostly complete, at this point, as there is little I 
-am _capable_ of adding. However, some useful features it could use,
-and which you could help me build, are:
+`letmeblog` is mostly complete, at this point, as there is little
+I  am _capable_ of adding. However, some useful features it could
+use, and which you could help me build, are:
 
 - Pagination, or "page navigation" for large content lists;
-- Next and previous posts;
-- Local search (a simple `grep` would suffice).
+- Local search (a simple `grep` would suffice);
+- Access counter.
 
-Some features are going to be implemented or improved as soon as I
-find enough documentation:
+Some features are going to be implemented or improved as soon as 
+I find enough documentation:
 
 - Improved `robots.txt`;
 - Improved `.htaccess`;
 - Fully functional atom feed;
 - Alternative RSS feed;
 
-Some other features are already in planning, but might be delayed,
-as they are too specific for my needs:
+Some other features are already in planning, but might be 
+delayed, as they are too specific for my needs:
 
 - PDF and EPUB generation for sets of files ("anthologies");
-- CSS editing based on font embedding (currently `letmeblog` wants you
-  manually edit your CSS files replacing font declarations if you
-  change the font embedding link);
+- CSS editing based on font embedding (currently `letmeblog` 
+  wants you to manually edit your CSS files replacing font 
+  declarations if you change the font embedding link);
 - Social network links.
 
-You are invited to help me improve `letmeblog` whatever way you can.
+You are invited to help improve `letmeblog` whatever way you can.
 
 # Conclusion #
 If you like this, visit me at <http://letraseletricas.blog.br>,
@@ -1026,21 +1177,22 @@ Copyright © 1999-2020 by Jilles van Gurp
 Other scripts and templates
 Copyright © 2021 José Geraldo Gouvêa
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the 
-“Software”), to deal in the Software without restriction, including 
-without limitation the rights to use, copy, modify, merge, publish, 
-distribute, sublicense, and/or sell copies of the Software, and to 
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software and associated documentation 
+files (the “Software”), to deal in the Software without 
+restriction, including without limitation the rights to use, 
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be 
 included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE.

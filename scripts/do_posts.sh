@@ -13,9 +13,10 @@ for blogpost in `find src/posts -name \*.md | sort`; do
 echo "Compiling $slug"
 
 pandoc --to=html5 --from $panopts  $blogpost \
-       -o     posts/$slug".html" \
+       -o     posts/$slug".html" --toc --toc-depth=2 \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
+	-V      befo="$befo" -V aftr="$aftr" \
 	-V    site_id="$site_id" \
 	-V  site_desc="$site_desc" \
 	-V     author="$author" \

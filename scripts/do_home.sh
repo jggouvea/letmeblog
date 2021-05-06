@@ -12,7 +12,6 @@ pandoc --to=html5 --from $panopts src/index.md pinned.txt recent.txt \
 	-V  signature="$signature" \
 	-V     updmsg="$updmsg" \
 	-V     update="$update" \
-	-V  published="$pdate" \
 	-V  catprefix="$catprefix" \
 	-V   catcount="$catcount" \
 	-V  postcount="$postcount" \

@@ -3,7 +3,8 @@ source scripts/site_vars.sh
 
 blogpost=$1
 
-post=$(echo $blogpost | cut -d'.' -f1 | sed 's/$/.md/g')
+befo=$(grep -B 1 $blogpost manifest.txt | sed '2d' | sed 's/src//' | sed 's/md/html/')
+aftr=$(grep -A 1 $blogpost manifest.txt | sed '1d' | sed 's/src//' | sed 's/md/html/')
 fdate=$(echo $blogpost | cut -d'/' -f3 | cut -d'-' -f1,2,3)
 pdate=$(date -u --date=$fdate '+%d/%m/%Y')
 slug=posts/$(basename $blogpost .md)
@@ -12,9 +13,10 @@ title=$(grep -e "title: \"" $blogpost | cut -d'"' -f2)
 pyear=$(date -u --date=$fdate '+%Y')
 
 pandoc --to=html5 --from $panopts  $blogpost \
-	-o     $slug".html" \
+	-o     $slug".html" --toc --toc-depth=3 \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
+	-V      befo="$befo" -V aftr="$aftr" \
 	-V    site_id="$site_id" \
 	-V  site_desc="$site_desc" \
 	-V     author="$author" \

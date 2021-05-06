@@ -56,7 +56,6 @@ pandoc --to=html5 --from $panopts  $ind   \
 	-V  signature="$signature" \
 	-V     updmsg="$updmsg" \
 	-V     update="$update" \
-	-V  published="$pdate" \
 	-V  catprefix="$catprefix" \
 	-V   catcount="$catcount" \
 	-V  tagprefix="$tagprefix" \
@@ -109,7 +108,7 @@ rm $catprefix/_index.txt
 echo "
 
 |
-|:----:|----:|
+|:----:|:----:|
 | [Retornar aos posts](/posts/index.html) | [Retornar à home](/index.html) |
 ">> $catprefix/index.txt
 
@@ -123,7 +122,6 @@ pandoc --to=html5 --from $panopts  $catprefix/index.txt   \
 	-V  signature="$signature" \
 	-V     updmsg="$updmsg" \
 	-V     update="$update" \
-	-V  published="$pdate" \
 	-V  catprefix="$catprefix" \
 	-V   catcount="$catcount" \
 	-V  tagprefix="$tagprefix" \

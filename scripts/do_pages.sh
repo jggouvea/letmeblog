@@ -14,7 +14,6 @@ pandoc --to=html5 --from $panopts       $page  \
 	-V  signature="$signature" \
 	-V     updmsg="$updmsg" \
 	-V     update="$update" \
-	-V  published="$pdate" \
 	-V  catprefix="$catprefix" \
 	-V   catcount="$catcount" \
 	-V  tagprefix="$tagprefix" \

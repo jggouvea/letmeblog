@@ -1,5 +1,6 @@
 #!/bin/sh
-source scripts/site_vars.sh
+
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 find src/posts/ -name \*.md | sort > manifest.txt
 
@@ -12,8 +13,8 @@ for blogpost in `find src/posts -name \*.md | sort`; do
 	aftr=$(grep -A 1 $blogpost manifest.txt | sed '1d' | sed 's/src//' | sed 's/md/html/')
 echo "Compiling $slug"
 
-pandoc --to=html5 --from $panopts  $blogpost \
-       -o     posts/$slug".html" --toc --toc-depth=2 \
+pandoc --to=html5 --from $panopts   \
+       -o     posts/$slug".html" --toc --toc-depth=2 $blogpost \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V      befo="$befo" -V aftr="$aftr" \

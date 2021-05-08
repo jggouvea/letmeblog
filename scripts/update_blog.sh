@@ -4,37 +4,45 @@ sh scripts/update_template.sh
 
 echo "Template updated"
 
+sh scripts/site_vars.sh
+
+echo "Variables updated"
+echo "Site configuration rewritten"
+
+sh scripts/set_recent.sh
 sh scripts/do_home.sh
 
 echo "Homepage updated"
+echo "Pinned post not changed"
 
 sh scripts/do_pages.sh
 
-echo "Pages updated"
+echo "Stactic pages updated"
 
 sh scripts/do_cats.sh
 
-echo "Categories updated"
+echo "Categories regenerated"
 
 sh scripts/do_tags.sh
 
-echo "Tags updated"
+echo "Tags regenerated"
 
 sh scripts/do_archives.sh
 
-echo "Archives updated"
+echo "Archives regenerated"
 
 sh scripts/do_blogfull.sh
 
-echo "Post list updated"
+echo "Full post list updated"
 
 sh scripts/do_posts.sh
 
-echo "Posts updated"
+echo "All posts recompiled"
 
 sh scripts/do_atom.sh
+sh scripts/do_rss.sh
 
-echo "Feed updated"
+echo "Feeds updated"
 
 sh scripts/do_sitemap.sh
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source scripts/site_vars.sh
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 rm -f recent.txt 
 

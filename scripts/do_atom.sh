@@ -1,5 +1,6 @@
 #!/bin/sh
-source scripts/site_vars.sh
+
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <feed xmlns=\"http://www.w3.org/2005/Atom\">

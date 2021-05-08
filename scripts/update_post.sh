@@ -1,5 +1,6 @@
 #!/bin/sh
-source scripts/site_vars.sh
+
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 blogpost=$1
 
@@ -13,7 +14,7 @@ title=$(grep -e "title: \"" $blogpost | cut -d'"' -f2)
 pyear=$(date -u --date=$fdate '+%Y')
 
 pandoc --to=html5 --from $panopts  $blogpost \
-	-o     $slug".html" --toc --toc-depth=3 \
+	-o     $slug".html" --toc-depth=3 \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V      befo="$befo" -V aftr="$aftr" \

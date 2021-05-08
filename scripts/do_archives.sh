@@ -1,5 +1,6 @@
 #!/bin/sh
-source scripts/site_vars.sh
+
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 echo "---
 title: \"Página de índices\"
@@ -32,6 +33,30 @@ rm -rf $ind $tmp
 rm -rf $archive/$Year
 mkdir -p $archive/$Year
 
+if [ "$Year" != "$first_year" ]; then
+last_year=$(expr $Year - 1)
+else
+last_year=0
+fi
+
+if [ "$last_year" = 0 ]; then
+PREVIOUS=""
+else
+PREVIOUS="<a href=\"/$archive/$last_year\">$last_year</a>&nbsp;<i class=\"fas fa-arrow-right\">&nbsp;</i>"
+fi
+
+if [ "$Year" == $this_year ]; then
+next_year=0
+else
+next_year=$(expr $Year + 1)
+fi
+
+if [ "$next_year" = 0 ]; then
+NEXT=""
+else
+NEXT="<i class=\"fas fa-arrow-left\"></i>&nbsp;<a href=\"/$archive/$next_year\">$next_year</a>"
+fi
+
 echo "---
 title: Artigos publicados em $Year
 ---
@@ -49,6 +74,13 @@ do
   echo "- <b class=\"pdate\">$pdate<b> - [$title](/posts/$plink)" >> $ind
   echo "Encontrado \"$title\", de $pyear."  
 done
+
+echo "<table class=\"back\">
+<tr class=\"odd\">
+<td style=\"text-align: left\"> $NEXT </td>
+<td style=\"text-align: center\"> <a href="..">RETORNAR</a> </td>
+<td style=\"text-align: right\"> $PREVIOUS </td>
+</tr></table>" >> $ind
 
 pandoc --to=html5 --from $panopts       $ind  \
        -o     $archive/$Year/index.html   \

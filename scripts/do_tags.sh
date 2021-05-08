@@ -1,5 +1,6 @@
 #!/bin/sh
-source scripts/site_vars.sh
+
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 echo "Will build index pages for the tags"
 
@@ -7,8 +8,8 @@ for tag in `cat taglist.txt`
 do
 ind="$tagprefix/$tag/index.txt"
 tmp="$tagprefix/$tag/_posts.txt"
-rm -rf $tagprefix/$tag/*.txt
-mkdir -p $tagprefix/$tag/
+rm -f "$tagprefix"/"$tag"/*
+mkdir -p "$tagprefix"/"$tag"
 
 echo "---
 title: Postagens sobre \"$tag\"

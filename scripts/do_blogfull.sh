@@ -1,8 +1,8 @@
 #!/bin/sh
 
-source scripts/site_vars.sh
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
-temp='"$archive".txt'
+temp=_index.txt
 rm -f $temp
 
 echo "---
@@ -21,15 +21,15 @@ do
  	plink=$(echo $(basename $blogpost .md).html)
  	title=$(grep -e "title:" $blogpost | cut -d':' -f2 | cut -d'"' -f2)
  	
- if [ $pyear != $this_year ]; then
+ if [ "$pyear" != "$this_year" ]; then
     echo -e "\n## $pyear\n" >> $temp
  fi
  this_year=$pyear
  echo "- <b class=\"pdate\">$pdate<b> - [$title]($plink)">>$temp
 done
 
-pandoc --to=html5 --from $panopts       $temp  \
-       -o     posts/"$archive".html   \
+pandoc --to=html5 --from $panopts         \
+       -o     posts/"$archive".html   $temp \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

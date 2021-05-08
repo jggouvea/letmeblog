@@ -1,11 +1,11 @@
 #!/bin/sh
 
-source scripts/site_vars.sh
+source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
 for page in `find src/pages -type f -iname \*.md`
 do
-pandoc --to=html5 --from $panopts       $page  \
-       -o     pages/"$(basename $page .md).html" \
+pandoc --to=html5 --from $panopts   \
+       -o     pages/"$(basename $page .md).html" $page \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

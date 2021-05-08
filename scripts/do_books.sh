@@ -24,8 +24,8 @@ $teaser
 " >> $books
 done
 
-pandoc --to=html5 --from $panopts  $page $books   \
-       -o pages/livros.html \
+pandoc --to=html5 --from $panopts     \
+       -o pages/livros.html $page $books \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

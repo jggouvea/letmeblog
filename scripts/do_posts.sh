@@ -11,6 +11,7 @@ for blogpost in `find src/posts -name \*.md | sort`; do
     slug=$(basename $blogpost .md)
 	befo=$(grep -B 1 $blogpost manifest.txt | sed '2d' | sed 's/src//' | sed 's/md/html/')
 	aftr=$(grep -A 1 $blogpost manifest.txt | sed '1d' | sed 's/src//' | sed 's/md/html/')
+
 echo "Compiling $slug"
 
 pandoc --to=html5 --from $panopts   \

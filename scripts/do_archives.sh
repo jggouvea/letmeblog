@@ -82,8 +82,8 @@ echo "<table class=\"back\">
 <td style=\"text-align: right\"> $PREVIOUS </td>
 </tr></table>" >> $ind
 
-pandoc --to=html5 --from $panopts       $ind  \
-       -o     $archive/$Year/index.html   \
+pandoc --to=html5 --from $panopts        \
+       -o     $archive/$Year/index.html  $ind  \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

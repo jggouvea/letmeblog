@@ -26,11 +26,7 @@ title: Artigos da categoria \"$category\"
 <div class=\"postlist\">
 " > $ind
 
-echo "Grepping each post by category."
-
 grep -le "  - \"$category\"" src/posts/*.md | sort -r > $tmp
-
-echo "Listing posts in categories."
 
 for blogpost in `cat $tmp`
 do
@@ -41,14 +37,13 @@ do
     pyear=$(date -u --date=$fdate '+%Y')
 
 echo "- <span class=\"pdate\">$pdate</span> - [$title](/posts/$plink)" >> $ind
-echo "Encontrado \"$title\", de $pdate, categoria \"$category\"."  
 done
 echo "</div>" >> $ind
 
 echo "Compiling category index pages"
 
-pandoc --to=html5 --from $panopts  $ind   \
-       -o "$catprefix/$category/$(basename $ind .txt).html" \
+pandoc --to=html5 --from $panopts     \
+    -o "$catprefix/$category/$(basename $ind .txt).html" $ind \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \
@@ -113,8 +108,8 @@ echo "
 | [Retornar aos posts](/posts/index.html) | [Retornar à home](/index.html) |
 ">> $catprefix/index.txt
 
-pandoc --to=html5 --from $panopts  $catprefix/index.txt   \
-    -o $catprefix/index.html \
+pandoc --to=html5 --from $panopts     \
+    -o $catprefix/index.html $catprefix/index.txt \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

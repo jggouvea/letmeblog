@@ -17,12 +17,9 @@ title: Postagens sobre \"$tag\"
 <div class=\"postlist\">
 " > $ind
 
-echo "Grepping posts for tags,
-This may take a long time."
-
 grep -le "  - \"$tag\"" src/posts/*.md | sort -r > $tmp
 
-echo "Populating tag index pages."
+echo "Grepping posts for tags and populating tag index pages."
 
 for blogpost in `cat $tmp`
 do
@@ -34,17 +31,13 @@ do
 
   echo "- <span class=\"pdate\">$pdate</span> - 
 [$title](/posts/$plink)" >> $ind
-  echo "
-    Encontrado post \"$title\", de $pdate, 
-    marcado no assunto \"$tag\". 
-    "  
 done
 
 echo "</div>" >> $ind
 echo "Compiling tag index page."
 
-pandoc --to=html5 --from $panopts  $ind   \
-       -o "$tagprefix/$tag/$(basename $ind .txt).html" \
+pandoc --to=html5 --from $panopts     \
+       -o "$tagprefix/$tag/$(basename $ind .txt).html" $ind \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \
@@ -130,8 +123,8 @@ echo "
 echo "Tag index prepared.
 Will compile the tag index page..."
 
-pandoc --to=html5 --from $panopts  $tagprefix/index.txt   \
-       -o $tagprefix/index.html \
+pandoc --to=html5 --from $panopts     \
+       -o $tagprefix/index.html $tagprefix/index.txt \
     --title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

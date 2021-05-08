@@ -2,8 +2,8 @@
 
 source $(pwd | cut -d'/' -f1,2,3,4)/site.cfg
 
-pandoc --to=html5 --from $panopts src/index.md pinned.txt recent.txt \
-       -o index.html --standalone \
+pandoc --to=html5 --from $panopts  \
+    -o index.html -s src/index.md pinned.txt recent.txt \
 	--title-prefix="$site_id · " \
 	--template templates/blog.html \
 	-V    site_id="$site_id" \

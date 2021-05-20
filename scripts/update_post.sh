@@ -15,7 +15,7 @@ pyear=$(date -u --date=$fdate '+%Y')
 
 pandoc --to=html5 --from $panopts  $blogpost \
 	-o     $slug".html" --toc-depth=3 \
-    --title-prefix="$site_id · " \
+    --title-prefix="$site_id · "  --toc \
 	--template templates/blog.html \
 	-V      befo="$befo" -V aftr="$aftr" \
 	-V    site_id="$site_id" \

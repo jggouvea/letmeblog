@@ -34,7 +34,7 @@ do
 done
 
 echo "</div>" >> $ind
-echo "Compiling tag index page."
+echo "Compiling $tag index page."
 
 pandoc --to=html5 --from $panopts     \
        -o "$tagprefix/$tag/$(basename $ind .txt).html" $ind \

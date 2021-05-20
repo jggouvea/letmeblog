@@ -1,9 +1,6 @@
 ---
 title: "Blogging With Markdown and Pandoc"
-subtitle: |
-  Automating generation of content for the web using Markdown as
-  the source format, shell scripting as the driver and Pandoc as
-  the backend.
+subtitle: "Posting content from markdown files with shell scripts"
 author: "José Geraldo Gouvêa" 
 date: April 23th, 2021.
 toc: true
@@ -771,9 +768,8 @@ anchor links pointing to your social networks. Style them as you wish. I use Fon
 <a class="fab fa-twitter" target="_blank" href="https://twitter.com/YOURPROFILE"></a>
 <a class="fab fa-telegram" target="_blank" href="https://t.me/YOURPROFILE"></a>
 <a class="fab fa-facebook" target="_blank" href="https://www.facebook.com/YOURPROFILE"></a>
-<a class="fab fa-github" target="_blank" href="https://github.com/YOURPROFILE"></a>
+<a class="fab fa-github" target="_blank" href="https://github.com/uvea"></a>
 </div>
-```
 
 ### The `sbar.txt` input file ###
 You can structure your navigation any way you want, but I advise
@@ -1016,24 +1012,25 @@ script works for you).
 \include{scripts/do_tags.sh}
 ```
 
-You can ajust column width in both scripts, to ensure the tables
-are generated without problems. The desired layout is a table of
-three-columns.
+You can ajust the column width in both scripts, if you need,
+to ensure that a corrent table is generated. The desired output
+is a three-column table in each case.
 
 ### Fixed pages ###
-Fixed pages are very easy to process, as they have no tags. It's
-just a case of getting a list of their filenames, processing all
-of them and outputing to the `/pages/` directory.
+Fixed pages are quite easy to process, since they don't have
+tags. It's just a case of cycling through their filenames and
+processing each of them:
 
 ```{.bash}
 \include{scripts/do_pages.sh}
 ```
 
 ### Blog posts ###
-This is a quite time-consuming stage of the compilation. So much
-so that I have included a script to compile single posts without
-the full wait of a complete blog update).  My own blog takes 144
-seconds to compile all posts (they being so many).
+This is a quite time-consuming part of the compilation (after 
+getting tags and cats). So much so that my current plans include
+a script to compile only the last "n" posts (a partial blog
+update). My own blog takes 144 seconds to compile all posts
+(they being so many).
 
 The script itself isn't much complicated, though:
 
@@ -1041,58 +1038,44 @@ The script itself isn't much complicated, though:
 \include{scripts/do_posts.sh}
 ```
 
-Compiling single posts is done by the `update_post.sh` script:
-
-```{.bash}
-\include{scripts/update_post.sh}
-```
-
-In the current state of things, my posts index page features the
-same layout as the posts archive (which are explained next), but
-with a bit of extras above and below. 
+I keep my full list as `posts/archive.html`.
+I do link to it from the landing page.
 
 ### Archive of posts by year ###
-This is one of the coolest things I have been able to create for
-my blog, using only shell script. That is also one Jilles didn't
-do; probably because he didn't need or want to, as he didn't use
-categories and tags either. The archive thingy demanded a lot of
-tweaks before it barely works and you will probably have to edit
-the script many times over, before it works for you (and there's
-some CSS you'll need, too), but it is already _awesome!_
+This is one of the coolest things I have been able to do in shell
+script, which Jilles didn't do (probably because he didn't need 
+or want to, as he didn't do categories and tags either). This 
+required quite a lot of tweaking before it worked. You will 
+probably have to adjust the CSS very well before it looks good 
+for you, but it _is awesome!_
+
 
 ```{.bash}
 \include{scripts/do_archives.sh}
 ```
 
-Here the archives index page are ready to be linked to. There is
-still room for improvement though, as the archives should have a
-bit more of interaction.
+Here the archives are ready to be linked to from the homepage and
+the sidebar (which is their sole purpose, if I am not wrong).
 
-### News feeds ###
-Though news feeds are less important nowadays, many people still
-use them to follow their favourite blogs. So I think it's a nice
-final touch to provide feeds for those who want them. Any way to
-entice people into reading and returning is valid.
-
-Jilles provided a somewhat limited Atom feed, which never worked
-correctly for me. I have remade it from scratch, after I learned
-enough about the format from Wikipedia and other places. I don't
-use Jilles' original atom generator any more.
+### Atom feed ###
+Though site feeds are less important nowadays, since Google
+killed its Feedburner and Reader services, many people still use
+them to follow their favourite blogs. So I think it's nice to
+provide at least one type of feed. I use an Atom feed because
+that was what Jilles used, but I will eventually find a way to do
+RSS 2.0 instead.
 
 ```{.bash}
 \include{scripts/do_atom.sh}
 ```
 
-Besides the Atom feed, which may be the most widely used format,
-I have included a tentative RSS feed generator as well. There is
-still a lot of room for improvement, but it works:
-
-```{.bash}
-\include{scripts/do_rss.sh}
-```
+I have actually made a few modifications to Jilles' script,
+though  it's still much the same and uses the same template.
+However, as you can see, the resulting `atom.xml` file is not
+well-formatted. There's a lot of room for improvements.
 
 ### Sitemap ###
-Sitemaps are useful to get your website higher SEO ranking. This
+Sitemaps are useful to get yourself a higher SEO ranking. This
 script is basically the same as Jilles':
 
 ```{.bash}
@@ -1100,20 +1083,19 @@ script is basically the same as Jilles':
 ```
 
 ## Uploading ##
-After done the compilation, you now have to upload the generated
-content to your webserver, for which you can use your trusty FTP
-transfer utility (like `ncftp`, `lftp`, FileZilla etc.), or some
-`rsync` spell.
+After done the compilation, you only have to upload the generated
+content to your webserver, for which you will probably use your
+trusty FTP transfer utility or some `rsync` spell.
 
-I have chosen to do that manually, instead of scripting, because 
-of bad misfortunes I had in the past, using buggy `rsync` spells
-which, instead of uploading my contents to an empty directory in 
-the cloud, instead _deleted_ my local content, an unforeseen way
-to make the two places exact "mirrors" of each other...
+I have chosen to do that manually, instead of scripted, because 
+of bad misfortunes I had in the past, using buggy `rsync` scripts
+which, instead of uploading my files to an empty directory in 
+the cloud, instead _deleted_ my local files so the two places 
+were exact "mirrors" of each other (though not the way I wanted).
 
-If you have too many images, this upload will take very long (my
-initial commit took almost one full hour), but for text files it
-is very fast. Future uploads will be faster, too.
+If you have too many images, the upload will take very long (my
+initial commit took almost one full hour), but for the text files
+it is very fast.
 
 My preferred upload method is the mirroring command from `lftp`:
 
@@ -1122,9 +1104,9 @@ My preferred upload method is the mirroring command from `lftp`:
 Which you will invoke _after_ logging into your FTP server using 
 `lftp` and changing your local directory to your build root.
 
-If you didn not change into the root folder before you logged in,
-you can still do it with the command `lcd`, which takes the full
-path (unless changing into a subdirectory of the current).
+In case you didn't change directory before logging in, you can
+still do it with the command `lcd`, which takes the full path
+(unless you are changing into a subdirectory of the current).
 
 In _my case_, as an example, I do this:
 
@@ -1134,23 +1116,21 @@ cd ..
 mirror -R -x templates -x src -x scripts public_html www
 ```
 
-One good thing about the "mirror" command from `lftp` is that it 
-will only transfer files which have changed, which means it will
-probably re-upload your entire set of HTML, as well as any files
-you have edited, but _not_ if you add the `--ignore-time` switch,
-which instructs `lftp` to only upload files that have been added
-or which have changed in bytesize.
+One good thing about the "mirror" command in `lftp` is that it 
+will only transfer the files which have changed. This means it 
+will  probably re-upload your entire set of HTML, as well as any
+files you have edited, but _not_ if you add the `--ignore-time`
+switch, which instructs `lftp` to only upload files that have
+been added or which have changed in bytesize.
 
-Recompiling your entire blog with the `do_posts.sh` script,  for
+Recompiling your entire blog with the `do_posts.sh` script, for 
 instance, will change the HTML files timestamp, but if no change
-has been actually made do the templates or to the contents,  the
-size in bytes may still be the same.  The `--ignore-time` switch
-will prevent you from re-upload everything, saving bandwidth and
-time.
+has been made, the size in bytes may still be the same, which
+will  prevent re-upload and save you bandwidth and time.
 
 ## To be added ##
-`letmeblog` is quite complete, at this point, as there is little
-I am _capable_ of adding. However, some useful features it could
+`letmeblog` is mostly complete, at this point, as there is little
+I  am _capable_ of adding. However, some useful features it could
 use, and which you could help me build, are:
 
 - Pagination, or "page navigation" for large content lists;
@@ -1162,10 +1142,11 @@ I find enough documentation:
 
 - Improved `robots.txt`;
 - Improved `.htaccess`;
-- Fully functional RSS feed;
+- Fully functional atom feed;
+- Alternative RSS feed;
 
-Other features are already in planning, but might be delayed, as
-they are too specific for my needs:
+Some other features are already in planning, but might be 
+delayed, as they are too specific for my needs:
 
 - PDF and EPUB generation for sets of files ("anthologies");
 - CSS editing based on font embedding (currently `letmeblog` 
@@ -1173,16 +1154,16 @@ they are too specific for my needs:
   declarations if you change the font embedding link);
 - Social network links.
 
-You are invited to help improve `letmeblog` as you can.
+You are invited to help improve `letmeblog` whatever way you can.
 
 # Conclusion #
-If you like this,  visit me at <http://letraseletricas.blog.br>,
-find my social network places, and help spread the word about my
+If you like this, visit me at <http://letraseletricas.blog.br>,
+find my social network places and help spread the word about my
 work as a fiction writer and translator.
 
-Thanks for reading up to this point. I hope you can produce your
-own blog using my tool. But if you don't, remember the old adage
-of the GNU gurus:
+Thank you for reading up to this point. I hope you can produce 
+your own blog using my tool. But if you don't, remember the old
+adage of the GNU gurus:
 
 > THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED 
 > BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE
@@ -1208,7 +1189,7 @@ of the GNU gurus:
 # Legalese #
 Scripts licensed under the [MIT/Expat](https://mit-license.org).
 
-Script `do_sitemap.sh`:
+Scripts `do_atom.sh` and `do_sitemap.sh`:
 Copyright © 1999-2020 by Jilles van Gurp
 
 Other scripts and templates

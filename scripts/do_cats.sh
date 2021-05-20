@@ -40,7 +40,7 @@ echo "- <span class=\"pdate\">$pdate</span> - [$title](/posts/$plink)" >> $ind
 done
 echo "</div>" >> $ind
 
-echo "Compiling category index pages"
+echo "Compiling $category index page"
 
 pandoc --to=html5 --from $panopts     \
     -o "$catprefix/$category/$(basename $ind .txt).html" $ind \

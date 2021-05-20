@@ -1,1 +1,0 @@
-wkhtmltopdf --print-media-type -d 150 -B 15mm -L 20mm -R 15mm -T 20mm -s a5 --footer-font-name 'Times New Roman' --footer-font-size 10 --header-center '[doctitle]' --footer-right '[page]' vamps.html vamps.pdf

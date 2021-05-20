@@ -19,9 +19,11 @@ $if(tags)$
 $endif$
     <meta property="og:type" content="website" />
 <!-- Font Stylesheets --> 
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$textfont$" type="text/css"/>
+$if(fonturl)$
+<link rel="stylesheet" media="screen" href="$fonturl$/$textfont$$fontenctxt$" type="text/css"/>
 $if(headfont)$
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/$headfont$" type="text/css"/>
+<link rel="stylesheet" media="screen" href="$fonturl$/$headfont$$fontenchdr$" type="text/css"/>
+$endif$
 $endif$
 <!-- Local Stylesheets -->
 <link rel="stylesheet" media="screen" href="/common.css" />
@@ -38,13 +40,21 @@ crossorigin="anonymous"></script>
 
 <body>
 <div id="masthead">
+<div style="text-align: right" id="social">
+<a class="fab fa-twitter" 	target="_blank"	href="https://twitter.com/jggouvea"></a>
+<a class="fab fa-telegram" 	target="_blank"	href="https://t.me/JotaGeGo"></a>
+<a class="fab fa-facebook" 	target="_blank"	href="https://www.facebook.com/jose.gouvea"></a>
+<a class="fab fa-github" 	target="_blank"	href="https://github.com/jggouvea"></a>
+</div>
 <div id="site-name"><a href="/" title="$site_id$" rel="home">$site_id$</a></div>
   	<div id="site-description" title="$site_desc$">$site_desc$</div>
 	<div id="site-data">
 	<span id="byline" title="$author$">by $signature$</span>
 	<span id="update">$updmsg$<span class="date">$update$</span></span>
-	<span id="tag">DESDE 2010</span></div>
-</div>
+
+
+</div></div>
+
 <div id="sidebar">
 <div role="navigation" class="site-navigation main-navigation">
   <div class="menu-navigation-container">
@@ -65,7 +75,9 @@ crossorigin="anonymous"></script>
     <li><a title="Categorias" href="/$catprefix$/index.html">$catprefix$</a></li>
     <li><a title="Assuntos" href="/$tagprefix$/index.html">$tagprefix$</a></li>
     <li><a title="Lista de artigos" href="/$archive$/index.html">$archive$</a></li>
-    <li><a title="Atom.xml Feed" href="/atom.xml">feed</a></li>
+    <li><a title="Ferramenta de busca" href="/busca.php">buscar</a></li>
+    <li id="feeds">Posts: <a title="Atom.xml Feed" href="/atom.xml">Atom</a> |
+    <a title="RSS Feed" href="/rss.xml">RSS</a></li>
   </ul>
 </div>
 
@@ -93,17 +105,29 @@ crossorigin="anonymous"></script>
 		$if(published)$
 		  <div class="published">Publicado em: $published$</div>
 		$endif$
-		
-		$if(toc)$
-		<div id="$idprefix$TOC" role="doc-toc">
-		$if(toc-title)$
-		<b id="$idprefix$toc-title">$toc-title$</b>
+
+		$if(abstract)$
+		<div class="intro">$abstract$</div>
 		$endif$
+				
+		$if(toc)$
+		<div id="TOC" role="doc-toc">
+		<b id="toc-title">Sumário</b>
 		$table-of-contents$
 		</div>
 		$endif$
 		
 			  $body$
+
+		$if(published)$
+		  <div id="context">
+			<a class="fas fa-arrow-left" href="$aftr$"></a>
+			<a id="newer" href="$aftr$">seguinte</a>
+			<span id="expander fas"></span>
+			<a id="older" href="$befo$">anterior</a>
+			<a class="fas fa-arrow-right" href="$befo$"></a>
+		  </div>
+		$endif$
 		
 		$if(published)$
 			<div id="categories"><b>Arquivado em: </b>
@@ -122,5 +146,37 @@ crossorigin="anonymous"></script>
 	</div>
 </div>
 <div id="footer">
+<div id="license">
+
+<span class="cc">
+    <i class="fab fa-creative-commons"></i>
+    <i class="fab fa-creative-commons-by"></i>
+    <i class="fab fa-creative-commons-nc"></i>
+    <i class="fab fa-creative-commons-sa"></i>
+</span>
+
+<p id="cctext">
+Conte&uacute;do publicado conforme a licen&ccedil;a <a 
+href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
+Creative Commons Atribui&ccedil;&atilde;o-N&atilde;oComercial-CompartilhaIgual
+4.0 Internacional (CC BY-NC-SA 4.0)</a>. <span id="pirata">COPIAR
+N&Atilde;O &Eacute; PRESTIGIAR. N&Atilde;O PIRATEIE, N&Atilde;O
+SACANEIE!</span>
+</p>
+
+</div>
+
+<p id="site-info">
+Este site é mantido a partir de um conjunto de documentos em
+<a href="http://markdownguide.org" target="_blank">Markdown</a>
+compilados pelo <a href="http://pandoc.org" rel="generator" 
+target="_blank">Pandoc</a>, o conversor universal de documentos,
+a partir do conceito desenvolvido por 
+<a href="https://github.com/jillesvangurp">Jilles van Gurp</a>.
+Obtenha os scripts utilizados para a compila&ccedil;&atilde;o,
+bem como a documenta&ccedil;&atilde;o detalhada, visitando a 
+<a href="https://github.com/jggouvea/letmeblog">página de 
+desenvolvimento</a> no GitHub.
+</p>
 </div>
 </body></html>
